@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+html {
+    -webkit-writing-mode: vertical-rl;
+    -webkit-text-orientation: mixed;
+    -epub-writing-mode: vertical-rl;
+    -epub-text-orientation: mixed;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+section {
+    break-after: page;
+    page-break-after: always;
+}
+
+p {
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+}

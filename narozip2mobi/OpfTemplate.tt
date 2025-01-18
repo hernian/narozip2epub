@@ -1,0 +1,47 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+<?xml version="1.0" encoding="UTF-8"?>
+<package
+    xmlns="http://www.idpf.org/2007/opf"
+    version="3.0"
+    xml:lang="ja"
+>
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title id="title"><#= XmlEncode(_title) #></dc:title>
+    <meta refines="#title" property="file-as"><#= XmlEncode(_kanaTitle) #></meta>
+
+    <dc:creator id="creator01"><#= XmlEncode(_author) #></dc:creator>
+    <meta refines="#creator01" property="role" scheme="marc:relators">aut</meta>
+    <meta refines="#creator01" property="file-as"><#= XmlEncode(_kanaAuthor) #></meta>
+    <meta refines="#creator01" property="display-seq">1</meta>
+    
+    <dc:language>ja</dc:language>
+    
+</metadata>
+
+<manifest>
+    <!-- スタイルシート -->
+    <item media-type="text/css" id="book-style" href="style.css"/>
+
+    <!-- 目次 -->
+    <item media-type="text/html" id="toc" href="toc.html" properties="nav"/>
+
+    <!-- 表紙画像 -->
+    <item media-type="image/jpg" id="cover" href="cover.jpg" properties="cover-image"/>
+
+    <!-- コンテンツ -->
+    <item media-type="text/html" id="p-cover" href="cover.html"/>
+    <item media-type="text/html" id="contents" href="contents.html"/>
+</manifest>
+
+<spine page-progression-direction="rtl">
+    <itemref linear="yes" idref="p-cover"/>
+    <itemref linear="yes" idref="toc"/>
+    <itemref linear="yes" idref="contents"/>
+</spine>
+
+</package>
