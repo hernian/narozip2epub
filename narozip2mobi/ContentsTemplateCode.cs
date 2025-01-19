@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace narozip2mobi
 {
     public partial class ContentsTemplate(string title)
     {
         public readonly string FILENAME_CONTENTS_HTML = "contents.html";
+
         public class Section(string id, string title)
         {
             public readonly string Id = id;
@@ -41,9 +43,5 @@ namespace narozip2mobi
             File.Copy(pathStyleSrc, pathStyleDst, true);
         }
 
-        private static string HtmlEncode(string text)
-        {
-            return HttpUtility.HtmlEncode(text);
-        }
     }
 }

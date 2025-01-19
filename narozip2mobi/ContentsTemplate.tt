@@ -10,19 +10,22 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title><#= HtmlEncode(Title) #></title>
+    <title><#= HtmlUtils.EncodeHead(Title) #></title>
 </head>
 <body>
     <article>
-        <h1><#= Title #></h1>
+        <h1><#= HtmlUtils.EncodeBody(Title) #></h1>
 <# foreach (var sect in Sections) { #>
         <section id="<#= sect.Id #>">
-            <h2><#= HtmlEncode(sect.Title) #></h2>
+            <h2><#= HtmlUtils.EncodeBody(sect.Title) #></h2>
 <# foreach (var para in sect.Paragraphs) { #>
-            <p><#= HtmlEncode(para) #></p>
+            <p><#= HtmlUtils.EncodeBody(para) #></p>
 <# } #>
         </section>
 <# } #>
+        <section>
+            <p>（本の終わり）</p>
+        </section>
     </article>
 </body>
 </html>

@@ -39,19 +39,25 @@ namespace narozip2mobi
             }
             var idxTitle = FindTitleIndex(contents);
             this.Title = $"{epNumber}: {contents[idxTitle]}";
-
-            // 章末から空行を削除する
-            var tempContents = contents.Slice(idxTitle + 1, contents.Count - idxTitle - 1);
-            for (int i = tempContents.Count - 1; i >= 0; i--)
+            if (idxTitle + 1 < contents.Count)
             {
-                var line = tempContents[i];
-                if (line != string.Empty)
+                // 章末から空行を削除する
+                var tempContents = contents.Slice(idxTitle + 1, contents.Count - idxTitle - 1);
+                for (int i = tempContents.Count - 1; i >= 0; i--)
                 {
-                    break;
+                    var line = tempContents[i];
+                    if (line != string.Empty)
+                    {
+                        break;
+                    }
+                    tempContents.RemoveAt(i);
                 }
-                tempContents.RemoveAt(i);
+                _contents = tempContents;
             }
-            _contents = tempContents;
+            else
+            {
+                _contents = [];
+            }
         }
 
         private static int FindTitleIndex(List<string> contents)

@@ -37,14 +37,14 @@ namespace narozip2mobi
     <title>");
             
             #line 13 "D:\MyPrograms\narozip2mobi\narozip2mobi\ContentsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlEncode(Title)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeHead(Title)));
             
             #line default
             #line hidden
             this.Write("</title>\r\n</head>\r\n<body>\r\n    <article>\r\n        <h1>");
             
             #line 17 "D:\MyPrograms\narozip2mobi\narozip2mobi\ContentsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Title));
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(Title)));
             
             #line default
             #line hidden
@@ -65,7 +65,7 @@ namespace narozip2mobi
             this.Write("\">\r\n            <h2>");
             
             #line 20 "D:\MyPrograms\narozip2mobi\narozip2mobi\ContentsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlEncode(sect.Title)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.Title)));
             
             #line default
             #line hidden
@@ -79,7 +79,7 @@ namespace narozip2mobi
             this.Write("            <p>");
             
             #line 22 "D:\MyPrograms\narozip2mobi\narozip2mobi\ContentsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlEncode(para)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(para)));
             
             #line default
             #line hidden
@@ -97,7 +97,8 @@ namespace narozip2mobi
             
             #line default
             #line hidden
-            this.Write("    </article>\r\n</body>\r\n</html>\r\n");
+            this.Write("        <section>\r\n            <p>（本の終わり）</p>\r\n        </section>\r\n    </article>" +
+                    "\r\n</body>\r\n</html>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

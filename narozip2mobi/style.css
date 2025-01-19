@@ -9,12 +9,26 @@ html {
     text-orientation: mixed;
 }
 
+h1 {
+    font-size: 120%;
+}
+
+h2 {
+    font-size: 110%;
+}
+
 section {
     break-after: page;
     page-break-after: always;
 }
 
 p {
-    margin-left: 0.1em;
-    margin-right: 0.1em;
+    margin-left: 0%;
+    margin-right: 0%;
+}
+
+span.tcy {
+    text-combine-upright: all;
+    -webkit-text-combine: horizontal;
+    -epub-text-combine: horizontal;
 }

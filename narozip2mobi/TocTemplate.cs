@@ -12,7 +12,6 @@ namespace narozip2mobi
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
-    using System.Web;
     using System;
     
     /// <summary>
@@ -50,28 +49,28 @@ namespace narozip2mobi
       <ol>
 ");
             
-            #line 27 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            #line 26 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
  foreach (var item in _items) { 
             
             #line default
             #line hidden
             this.Write("        <li><a href=\"");
             
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            #line 27 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.LinkTo));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HttpEncode(item.Name)));
+            #line 27 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(item.Name)));
             
             #line default
             #line hidden
             this.Write("</a></li>\r\n");
             
-            #line 29 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
  } 
             
             #line default

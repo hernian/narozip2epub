@@ -3,7 +3,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.Web" #>
 <#@ output extension=".html" #>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
@@ -25,7 +24,7 @@
     <nav epub:type="toc" id="toc">
       <ol>
 <# foreach (var item in _items) { #>
-        <li><a href="<#= item.LinkTo #>"><#= HttpEncode(item.Name) #></a></li>
+        <li><a href="<#= item.LinkTo #>"><#= HtmlUtils.EncodeBody(item.Name) #></a></li>
 <# } #>
       </ol>
     </nav>
