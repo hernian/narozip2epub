@@ -77,12 +77,11 @@ namespace narozip2mobi
     <item media-type=""image/jpg"" id=""cover"" href=""cover.jpg"" properties=""cover-image""/>
 
     <!-- コンテンツ -->
-    <item media-type=""text/html"" id=""p-cover"" href=""cover.html""/>
     <item media-type=""text/html"" id=""contents"" href=""contents.html""/>
 </manifest>
 
 <spine page-progression-direction=""rtl"">
-    <itemref linear=""yes"" idref=""p-cover""/>
+    <itemref linear=""yes"" idref=""cover""/>
     <itemref linear=""yes"" idref=""toc""/>
     <itemref linear=""yes"" idref=""contents""/>
 </spine>

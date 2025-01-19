@@ -83,9 +83,10 @@ namespace narozip2mobi
             var batGen = new GenMobiBatTemplate(oftFilename);
             batGen.Generate(dirOut);
 
-            var coverHtmlGen = new CoverHtmlTemplate(title);
-            coverHtmlGen.Generate(dirOut);
-
+            // Kindlegenはカバーhtmlに対応していない、カバー画像だけで良い
+            // var coverHtmlGen = new CoverHtmlTemplate(title);
+            // coverHtmlGen.Generate(dirOut);
+            
             var coverImgGen = new CoverImageGenerator(title);
             coverImgGen.Generate(dirOut);
         }
