@@ -12,6 +12,7 @@ namespace narozip2mobi
         private const string START_OF_EPISODE = "********************************************";
         private const string END_OF_EPISODE = "************************************************";
 
+        public readonly int EpisodeNumber;
         public readonly string Id;
         public readonly string Title;
         private readonly List<string> _contents = [];
@@ -19,6 +20,7 @@ namespace narozip2mobi
 
         public ZipEpisode(int epNumber, ZipArchiveEntry zipEntry, int skipBlank)
         {
+            this.EpisodeNumber = epNumber;
             this.Id = $"EP{epNumber}";
             this._skipBlank = skipBlank;
 
@@ -38,7 +40,7 @@ namespace narozip2mobi
                 }
             }
             var idxTitle = FindTitleIndex(contents);
-            this.Title = $"{epNumber}: {contents[idxTitle]}";
+            this.Title = contents[idxTitle];
             if (idxTitle + 1 < contents.Count)
             {
                 // 章末から空行を削除する

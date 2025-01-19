@@ -52,6 +52,11 @@ namespace narozip2mobi
             return text;
         }
 
+        public static string EncodeBody(int num)
+        {
+            return EncodeBody(num.ToString());
+        }
+
         [GeneratedRegex(@"\d+")]
         private static partial Regex RegexDigits();
     }

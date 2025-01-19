@@ -9,11 +9,11 @@ namespace narozip2mobi
 {
     public partial class TocTemplate
     {
-        private readonly List<(string LinkTo, string Name)> _items = [];
+        private readonly List<(string LinkTo, int EpisodeNumber, string Name)> _items = [];
 
-        public void AddItem(string linkTo, string name)
+        public void AddItem(string linkTo, int epNumber, string name)
         {
-            _items.Add((linkTo, name));
+            _items.Add((linkTo, epNumber, name));
         }
 
         public void Generate(string dirOut)
@@ -21,11 +21,6 @@ namespace narozip2mobi
             var pathToc = Path.Combine(dirOut, "toc.html");
             var strToc = this.TransformText();
             TextFileUtil.WriteText(pathToc, strToc);
-        }
-
-        private static string HttpEncode(string text)
-        {
-            return HttpUtility.HtmlEncode(text);
         }
     }
 }

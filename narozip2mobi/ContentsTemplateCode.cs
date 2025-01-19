@@ -15,8 +15,9 @@ namespace narozip2mobi
     {
         public readonly string FILENAME_CONTENTS_HTML = "contents.html";
 
-        public class Section(string id, string title)
+        public class Section(int epNum, string id, string title)
         {
+            public readonly int EpisodeNumber = epNum;
             public readonly string Id = id;
             public readonly string Title = title;
             public readonly List<string> Paragraphs = [];

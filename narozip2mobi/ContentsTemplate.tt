@@ -17,7 +17,7 @@
         <h1><#= HtmlUtils.EncodeBody(Title) #></h1>
 <# foreach (var sect in Sections) { #>
         <section id="<#= sect.Id #>">
-            <h2><#= HtmlUtils.EncodeBody(sect.Title) #></h2>
+            <h2><#= HtmlUtils.EncodeBody(sect.EpisodeNumber) #> <#= HtmlUtils.EncodeBody(sect.Title) #></h2>
 <# foreach (var para in sect.Paragraphs) { #>
             <p><#= HtmlUtils.EncodeBody(para) #></p>
 <# } #>

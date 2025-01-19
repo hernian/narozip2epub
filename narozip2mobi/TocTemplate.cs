@@ -64,6 +64,13 @@ namespace narozip2mobi
             this.Write("\">");
             
             #line 27 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(item.EpisodeNumber)));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 27 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(item.Name)));
             
             #line default

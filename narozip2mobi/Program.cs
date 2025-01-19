@@ -57,7 +57,7 @@ namespace narozip2mobi
             foreach (var entry in zipEntries)
             {
                 var zipEpisode = new ZipEpisode(epNumber, entry, opt.SkipBlank);
-                var sec = new ContentsTemplate.Section($"ep{epNumber}", zipEpisode.Title);
+                var sec = new ContentsTemplate.Section(epNumber, $"ep{epNumber}", zipEpisode.Title);
                 foreach (var paragraph in zipEpisode.GetContens())
                 {
                     sec.Paragraphs.Add(paragraph);
@@ -71,7 +71,7 @@ namespace narozip2mobi
             foreach (var sect in contentsGen.Sections)
             {
                 var linkTo = contentsGen.GetLinkTo(sect);
-                tocGen.AddItem(linkTo, sect.Title);
+                tocGen.AddItem(linkTo, sect.EpisodeNumber, sect.Title);
             }
             tocGen.Generate(dirOut);
 

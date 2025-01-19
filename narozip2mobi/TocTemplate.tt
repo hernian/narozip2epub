@@ -24,7 +24,7 @@
     <nav epub:type="toc" id="toc">
       <ol>
 <# foreach (var item in _items) { #>
-        <li><a href="<#= item.LinkTo #>"><#= HtmlUtils.EncodeBody(item.Name) #></a></li>
+        <li><a href="<#= item.LinkTo #>"><#= HtmlUtils.EncodeBody(item.EpisodeNumber) #> <#= HtmlUtils.EncodeBody(item.Name) #></a></li>
 <# } #>
       </ol>
     </nav>

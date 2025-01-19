@@ -65,6 +65,13 @@ namespace narozip2mobi
             this.Write("\">\r\n            <h2>");
             
             #line 20 "D:\MyPrograms\narozip2mobi\narozip2mobi\ContentsTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.EpisodeNumber)));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 20 "D:\MyPrograms\narozip2mobi\narozip2mobi\ContentsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.Title)));
             
             #line default
