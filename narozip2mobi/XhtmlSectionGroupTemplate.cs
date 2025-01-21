@@ -18,9 +18,9 @@ namespace narozip2mobi
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class TocTemplate : TocTemplateBase
+    public partial class XhtmlSectionGroupTemplate : XhtmlSectionGroupTemplateBase
     {
 #line hidden
         /// <summary>
@@ -31,68 +31,91 @@ namespace narozip2mobi
             this.Write(@"<?xml version=""1.0"" encoding=""UTF-8""?>
 <!DOCTYPE html>
 <html
-   xmlns=""http://www.w3.org/1999/xhtml""
-   xmlns:epub=""http://www.idpf.org/2007/ops""
-   xml:lang=""ja""
+xmlns=""http://www.w3.org/1999/xhtml""
+xmlns:epub=""http://www.idpf.org/2007/ops""
+xml:lang=""ja""
 >
 <head>
 <meta charset=""UTF-8""/>
-<title>目次</title>
-<link rel=""stylesheet"" type=""text/css"" href=""style/style.css""/>
-</head>
-<body>
-<nav epub:type=""toc"" id=""toc"">
-<h1>目次</h1>
-<ol>
-");
+<meta name=""viewport"" content=""width=device-width, initial-scale=1.0""/>
+<link rel=""stylesheet"" type=""text/css"" href=""../style/style.css""/>
+<title>");
             
-            #line 23 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
- foreach (var sectGrp in _vol.SectionGroups)
-   {
-       foreach (var sect in sectGrp.Sections)
-       {
-
+            #line 18 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeHead(_title)));
             
             #line default
             #line hidden
-            this.Write("<li><a href=\"xhtml/");
+            this.Write("</title>\r\n</head>\r\n<body>\r\n");
             
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
+            #line 21 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+ foreach (var sect in _sectGrp.Sections) { 
             
             #line default
             #line hidden
-            this.Write(".xhtml#");
+            this.Write("<section id=\"");
             
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            #line 22 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sect.SectionId));
             
             #line default
             #line hidden
-            this.Write("\">");
+            this.Write("\">\r\n<h2>");
             
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            #line 23 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.SectionNumber)));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+            #line 23 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.Title)));
             
             #line default
             #line hidden
-            this.Write("</a></li>\r\n");
+            this.Write("</h2>\r\n");
             
-            #line 29 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-     }
-   }
-
+            #line 24 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+ foreach (var para in sect.Paragraphs ) { 
             
             #line default
             #line hidden
-            this.Write("</ol>\r\n</nav>\r\n</body>\r\n</html>\r\n");
+            this.Write("<p>");
+            
+            #line 25 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(para)));
+            
+            #line default
+            #line hidden
+            this.Write("</p>\r\n");
+            
+            #line 26 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("</section>\r\n");
+            
+            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            
+            #line 29 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+ if (_sectGrp.IsEndOfVolume) { 
+            
+            #line default
+            #line hidden
+            this.Write("<section>\r\n<p>本の終わり</p>\r\n</section>\r\n");
+            
+            #line 33 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("</body>\r\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -104,7 +127,7 @@ namespace narozip2mobi
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class TocTemplateBase
+    public class XhtmlSectionGroupTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

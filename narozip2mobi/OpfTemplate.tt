@@ -3,44 +3,52 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ output extension=".txt" #>
+<#@ output extension=".opf" #>
 <?xml version="1.0" encoding="UTF-8"?>
 <package
     xmlns="http://www.idpf.org/2007/opf"
     version="3.0"
     xml:lang="ja"
+    unique-identifier="unique-id"
+    prefix="ebpaj: http://www.ebpaj.jp/"
 >
 <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
-    <dc:title id="title"><#= XmlEncode(_title) #></dc:title>
-    <meta refines="#title" property="file-as"><#= XmlEncode(_kanaTitle) #></meta>
+<dc:title id="title"><#= XmlEncode(_vol.Title) #></dc:title>
+<meta refines="#title" property="file-as"><#= XmlEncode(_vol.KanaTitle) #></meta>
 
-    <dc:creator id="creator01"><#= XmlEncode(_author) #></dc:creator>
-    <meta refines="#creator01" property="role" scheme="marc:relators">aut</meta>
-    <meta refines="#creator01" property="file-as"><#= XmlEncode(_kanaAuthor) #></meta>
-    <meta refines="#creator01" property="display-seq">1</meta>
+<dc:creator id="creator01"><#= XmlEncode(_vol.Author) #></dc:creator>
+<meta refines="#creator01" property="role" scheme="marc:relators">aut</meta>
+<meta refines="#creator01" property="file-as"><#= XmlEncode(_vol.KanaAuthor) #></meta>
+<meta refines="#creator01" property="display-seq">1</meta>
     
-    <dc:language>ja</dc:language>
-    
+<dc:language>ja</dc:language>
+<dc:identifier id="unique-id">urn:uuid:<#= _vol.UniqueId #></dc:identifier>
+<meta property="dcterms:modified"><#= _modDate #></meta>
+<meta property="ebpaj:guide-version">1.1.3</meta>
 </metadata>
 
 <manifest>
-    <!-- スタイルシート -->
-    <item media-type="text/css" id="book-style" href="style.css"/>
+<!-- navigation -->
+<item media-type="application/xhtml+xml" id="toc" href="navigation-documents.xhtml" properties="nav"/>
 
-    <!-- 目次 -->
-    <item media-type="text/html" id="toc" href="toc.html" properties="nav"/>
+<!-- style -->
+<item media-type="text/css" id="book-style" href="style/style.css"/>
 
-    <!-- 表紙画像 -->
-    <item media-type="image/jpg" id="cover" href="cover.jpg" properties="cover-image"/>
+<!-- image -->
+<item media-type="image/jpeg" id="cover" href="image/cover.jpg" properties="cover-image"/>
 
-    <!-- コンテンツ -->
-    <item media-type="text/html" id="contents" href="contents.html"/>
+<!-- xhtml -->
+<item media-type="application/xhtml+xml" id="p-cover" href="xhtml/p-cover.xhtml"/>
+<# foreach (var sectGrp in _vol.SectionGroups) { #>
+<item media-type="application/xhtml+xml" id="<#= sectGrp.SectionGroupId #>" href="xhtml/<#= sectGrp.SectionGroupId #>.xhtml"/>
+<# } #>
 </manifest>
 
 <spine page-progression-direction="rtl">
-    <itemref linear="yes" idref="cover"/>
-    <itemref linear="yes" idref="toc"/>
-    <itemref linear="yes" idref="contents"/>
+<itemref linear="yes" idref="p-cover"/>
+<# foreach (var sectGrp in _vol.SectionGroups) { #>
+<itemref linear="yes" idref="<#= sectGrp.SectionGroupId #>"/>
+<# } #>
 </spine>
 
 </package>

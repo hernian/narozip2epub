@@ -18,9 +18,9 @@ namespace narozip2mobi
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
+    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlCoverTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class TocTemplate : TocTemplateBase
+    public partial class XhtmlCoverTemplate : XhtmlCoverTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,71 +28,18 @@ namespace narozip2mobi
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"<?xml version=""1.0"" encoding=""UTF-8""?>
-<!DOCTYPE html>
-<html
-   xmlns=""http://www.w3.org/1999/xhtml""
-   xmlns:epub=""http://www.idpf.org/2007/ops""
-   xml:lang=""ja""
->
-<head>
-<meta charset=""UTF-8""/>
-<title>目次</title>
-<link rel=""stylesheet"" type=""text/css"" href=""style/style.css""/>
-</head>
-<body>
-<nav epub:type=""toc"" id=""toc"">
-<h1>目次</h1>
-<ol>
-");
+            this.Write("<!DOCTYPE html>\r\n<html\r\n xmlns=\"http://www.w3.org/1999/xhtml\"\r\n xmlns:epub=\"http:" +
+                    "//www.idpf.org/2007/ops\"\r\n xml:lang=\"ja\"\r\n class=\"hltr\"\r\n>\r\n<head>\r\n<meta charse" +
+                    "t=\"UTF-8\"/>\r\n<title>");
             
-            #line 23 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
- foreach (var sectGrp in _vol.SectionGroups)
-   {
-       foreach (var sect in sectGrp.Sections)
-       {
-
+            #line 16 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlCoverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeHead(_title)));
             
             #line default
             #line hidden
-            this.Write("<li><a href=\"xhtml/");
-            
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
-            
-            #line default
-            #line hidden
-            this.Write(".xhtml#");
-            
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(sect.SectionId));
-            
-            #line default
-            #line hidden
-            this.Write("\">");
-            
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.SectionNumber)));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.Title)));
-            
-            #line default
-            #line hidden
-            this.Write("</a></li>\r\n");
-            
-            #line 29 "D:\MyPrograms\narozip2mobi\narozip2mobi\TocTemplate.tt"
-     }
-   }
-
-            
-            #line default
-            #line hidden
-            this.Write("</ol>\r\n</nav>\r\n</body>\r\n</html>\r\n");
+            this.Write("</title>\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"../style/style.css\"/>\r\n</h" +
+                    "ead>\r\n<body epub:type=\"cover\" class=\"p-cover\">\r\n<div class=\"main\">\r\n<p><img clas" +
+                    "s=\"fit\" src=\"../image/cover.jpg\" alt=\"\"/></p>\r\n</div>\r\n</body>\r\n</html>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -104,7 +51,7 @@ namespace narozip2mobi
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class TocTemplateBase
+    public class XhtmlCoverTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

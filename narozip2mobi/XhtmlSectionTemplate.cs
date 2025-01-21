@@ -18,9 +18,9 @@ namespace narozip2mobi
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\CoverHtmlTemplate.tt"
+    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class CoverHtmlTemplate : CoverHtmlTemplateBase
+    public partial class XhtmlSectionTemplate : XhtmlSectionTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,18 +28,49 @@ namespace narozip2mobi
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<!DOCTYPE html>\r\n<html lang=\"ja\">\r\n<head>\r\n    <meta http-equiv=\"content-type\" co" +
-                    "ntent=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=devi" +
-                    "ce-width, initial-scale=1.0\">\r\n    <title>");
+            this.Write("<article>\r\n<section id=\"");
             
-            #line 12 "D:\MyPrograms\narozip2mobi\narozip2mobi\CoverHtmlTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HttpEncode(_title)));
+            #line 7 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_sect.SectionId));
             
             #line default
             #line hidden
-            this.Write("</title>\r\n    <style>\r\n        img {\r\n            height: 100%;\r\n            widt" +
-                    "h: auto;\r\n        }\r\n    </style>\r\n</head>\r\n<body epub:type=\"cover\" id=\"p-cover\"" +
-                    ">\r\n    <img src=\"cover.jpg\" alt=\"カバー画像\">\r\n</body>\r\n</html>\r\n");
+            this.Write("\">\r\n<h2>");
+            
+            #line 8 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(_sect.SectionNumber)));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 8 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(_sect.Title)));
+            
+            #line default
+            #line hidden
+            this.Write("</h2>\r\n");
+            
+            #line 9 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionTemplate.tt"
+ foreach (var para in _sect.Paragraphs) { 
+            
+            #line default
+            #line hidden
+            this.Write("<p>");
+            
+            #line 10 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(para)));
+            
+            #line default
+            #line hidden
+            this.Write("</p>\r\n");
+            
+            #line 11 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("</section>\r\n</article>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -51,7 +82,7 @@ namespace narozip2mobi
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class CoverHtmlTemplateBase
+    public class XhtmlSectionTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

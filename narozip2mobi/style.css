@@ -9,6 +9,10 @@ html {
     text-orientation: mixed;
 }
 
+ol li {
+    list-style: none;
+}
+
 h1 {
     font-size: 120%;
 }

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace narozip2mobi
 {
-    public partial class TocTemplate(EpubVolume vol)
+    internal class NaroZip2EpubError: Exception
     {
-        private readonly EpubVolume _vol = vol;
+        public NaroZip2EpubError(string message)
+            : base(message)
+        {
+        }
     }
 }

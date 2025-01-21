@@ -1,6 +1,6 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +8,8 @@ using System.Web;
 
 namespace narozip2mobi
 {
-    public partial class TocTemplate(EpubVolume vol)
+    public partial class XhtmlCoverTemplate(string title)
     {
-        private readonly EpubVolume _vol = vol;
+        private readonly string _title = title;
     }
 }

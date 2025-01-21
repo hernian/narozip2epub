@@ -28,66 +28,126 @@ namespace narozip2mobi
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<package\r\n    xmlns=\"http://www.idpf.org/" +
-                    "2007/opf\"\r\n    version=\"3.0\"\r\n    xml:lang=\"ja\"\r\n>\r\n<metadata xmlns:dc=\"http://p" +
-                    "url.org/dc/elements/1.1/\">\r\n    <dc:title id=\"title\">");
+            this.Write(@"<?xml version=""1.0"" encoding=""UTF-8""?>
+<package
+    xmlns=""http://www.idpf.org/2007/opf""
+    version=""3.0""
+    xml:lang=""ja""
+    unique-identifier=""unique-id""
+    prefix=""ebpaj: http://www.ebpaj.jp/""
+>
+<metadata xmlns:dc=""http://purl.org/dc/elements/1.1/"">
+<dc:title id=""title"">");
             
-            #line 14 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_title)));
+            #line 16 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.Title)));
             
             #line default
             #line hidden
-            this.Write("</dc:title>\r\n    <meta refines=\"#title\" property=\"file-as\">");
-            
-            #line 15 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_kanaTitle)));
-            
-            #line default
-            #line hidden
-            this.Write("</meta>\r\n\r\n    <dc:creator id=\"creator01\">");
+            this.Write("</dc:title>\r\n<meta refines=\"#title\" property=\"file-as\">");
             
             #line 17 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_author)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.KanaTitle)));
             
             #line default
             #line hidden
-            this.Write("</dc:creator>\r\n    <meta refines=\"#creator01\" property=\"role\" scheme=\"marc:relato" +
-                    "rs\">aut</meta>\r\n    <meta refines=\"#creator01\" property=\"file-as\">");
+            this.Write("</meta>\r\n\r\n<dc:creator id=\"creator01\">");
             
             #line 19 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_kanaAuthor)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.Author)));
+            
+            #line default
+            #line hidden
+            this.Write("</dc:creator>\r\n<meta refines=\"#creator01\" property=\"role\" scheme=\"marc:relators\">" +
+                    "aut</meta>\r\n<meta refines=\"#creator01\" property=\"file-as\">");
+            
+            #line 21 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.KanaAuthor)));
+            
+            #line default
+            #line hidden
+            this.Write("</meta>\r\n<meta refines=\"#creator01\" property=\"display-seq\">1</meta>\r\n    \r\n<dc:la" +
+                    "nguage>ja</dc:language>\r\n<dc:identifier id=\"unique-id\">urn:uuid:");
+            
+            #line 25 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_vol.UniqueId));
+            
+            #line default
+            #line hidden
+            this.Write("</dc:identifier>\r\n<meta property=\"dcterms:modified\">");
+            
+            #line 26 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modDate));
             
             #line default
             #line hidden
             this.Write(@"</meta>
-    <meta refines=""#creator01"" property=""display-seq"">1</meta>
-    
-    <dc:language>ja</dc:language>
-    
+<meta property=""ebpaj:guide-version"">1.1.3</meta>
 </metadata>
 
 <manifest>
-    <!-- スタイルシート -->
-    <item media-type=""text/css"" id=""book-style"" href=""style.css""/>
+<!-- navigation -->
+<item media-type=""application/xhtml+xml"" id=""toc"" href=""navigation-documents.xhtml"" properties=""nav""/>
 
-    <!-- 目次 -->
-    <item media-type=""text/html"" id=""toc"" href=""toc.html"" properties=""nav""/>
+<!-- style -->
+<item media-type=""text/css"" id=""book-style"" href=""style/style.css""/>
 
-    <!-- 表紙画像 -->
-    <item media-type=""image/jpg"" id=""cover"" href=""cover.jpg"" properties=""cover-image""/>
+<!-- image -->
+<item media-type=""image/jpeg"" id=""cover"" href=""image/cover.jpg"" properties=""cover-image""/>
 
-    <!-- コンテンツ -->
-    <item media-type=""text/html"" id=""contents"" href=""contents.html""/>
-</manifest>
-
-<spine page-progression-direction=""rtl"">
-    <itemref linear=""yes"" idref=""cover""/>
-    <itemref linear=""yes"" idref=""toc""/>
-    <itemref linear=""yes"" idref=""contents""/>
-</spine>
-
-</package>
+<!-- xhtml -->
+<item media-type=""application/xhtml+xml"" id=""p-cover"" href=""xhtml/p-cover.xhtml""/>
 ");
+            
+            #line 42 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+ foreach (var sectGrp in _vol.SectionGroups) { 
+            
+            #line default
+            #line hidden
+            this.Write("<item media-type=\"application/xhtml+xml\" id=\"");
+            
+            #line 43 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
+            
+            #line default
+            #line hidden
+            this.Write("\" href=\"xhtml/");
+            
+            #line 43 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
+            
+            #line default
+            #line hidden
+            this.Write(".xhtml\"/>\r\n");
+            
+            #line 44 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("</manifest>\r\n\r\n<spine page-progression-direction=\"rtl\">\r\n<itemref linear=\"yes\" id" +
+                    "ref=\"p-cover\"/>\r\n");
+            
+            #line 49 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+ foreach (var sectGrp in _vol.SectionGroups) { 
+            
+            #line default
+            #line hidden
+            this.Write("<itemref linear=\"yes\" idref=\"");
+            
+            #line 50 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
+            
+            #line default
+            #line hidden
+            this.Write("\"/>\r\n");
+            
+            #line 51 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("</spine>\r\n\r\n</package>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

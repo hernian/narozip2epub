@@ -21,14 +21,8 @@ namespace narozip2mobi
 
         private readonly string _title = title;
 
-        public void Generate(string dirOut)
+        public void Generate(string pathCoverImg)
         {
-            //var myAssembly = Assembly.GetExecutingAssembly();
-            // var pathExe = myAssembly.Location ?? throw new Exception("No Assembly Location");
-            // var dirExe = Path.GetDirectoryName(pathExe) ?? "";
-            // var pathCoverImgSrc = Path.Combine(dirExe, "coverimgtemplate.png");
-            var pathCoverImgDst = Path.Combine(dirOut, "cover.jpg");
-            // var imageCover = Image.FromFile(pathCoverImgSrc);
             var imageCover = new Bitmap(PICS_WIDTH_COVER, PICS_HEIGHT_COVER, PixelFormat.Format24bppRgb);
             using (var g = Graphics.FromImage(imageCover))
             {
@@ -47,7 +41,7 @@ namespace narozip2mobi
                 };
                 g.DrawString(_title, font, Brushes.Black, rect, stringFormat);
             }
-            imageCover.Save(pathCoverImgDst, ImageFormat.Jpeg);
+            imageCover.Save(pathCoverImg, ImageFormat.Jpeg);
         }
     }
 }

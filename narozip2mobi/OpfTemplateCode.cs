@@ -5,25 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security;
+using System.Xml;
 
 namespace narozip2mobi
 {
-    public partial class OpfTemplate(string title, string kanaTitle, string author, string kanaAuthor)
+    public partial class OpfTemplate(EpubVolume vol, string modDate)
     {
-        private readonly string _title = title;
-        private readonly string _kanaTitle = kanaTitle;
-        private readonly string _author = author;
-        private readonly string _kanaAuthor = kanaAuthor;
-
-        public void Generate(string pathOpf)
-        {
-            var strOpf = this.TransformText();
-            TextFileUtil.WriteText(pathOpf, strOpf);
-        }
-
         private static string XmlEncode(string text)
         {
             return SecurityElement.Escape(text);
         }
+
+        private readonly EpubVolume _vol = vol;
+        private readonly string _modDate = modDate;
     }
 }

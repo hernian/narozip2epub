@@ -11,22 +11,25 @@
    xmlns:epub="http://www.idpf.org/2007/ops"
    xml:lang="ja"
 >
-  <head>
-    <title>目次</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <style>
-        ol li {
-            list-style: none;
-        }
-    </style>
-  </head>
-  <body>
-    <nav epub:type="toc" id="toc">
-      <ol>
-<# foreach (var item in _items) { #>
-        <li><a href="<#= item.LinkTo #>"><#= HtmlUtils.EncodeBody(item.EpisodeNumber) #> <#= HtmlUtils.EncodeBody(item.Name) #></a></li>
-<# } #>
-      </ol>
-    </nav>
-  </body>
+<head>
+<meta charset="UTF-8"/>
+<title>目次</title>
+<link rel="stylesheet" type="text/css" href="style/style.css"/>
+</head>
+<body>
+<nav epub:type="toc" id="toc">
+<h1>目次</h1>
+<ol>
+<# foreach (var sectGrp in _vol.SectionGroups)
+   {
+       foreach (var sect in sectGrp.Sections)
+       {
+#>
+<li><a href="xhtml/<#= sectGrp.SectionGroupId #>.xhtml#<#= sect.SectionId #>"><#= HtmlUtils.EncodeBody(sect.SectionNumber) #> <#= HtmlUtils.EncodeBody(sect.Title) #></a></li>
+<#     }
+   }
+#>
+</ol>
+</nav>
+</body>
 </html>
