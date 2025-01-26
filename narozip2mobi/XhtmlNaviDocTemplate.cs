@@ -18,9 +18,9 @@ namespace narozip2mobi
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+    #line 1 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlNaviDocTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class OpfTemplate : OpfTemplateBase
+    public partial class XhtmlNaviDocTemplate : XhtmlNaviDocTemplateBase
     {
 #line hidden
         /// <summary>
@@ -29,126 +29,70 @@ namespace narozip2mobi
         public virtual string TransformText()
         {
             this.Write(@"<?xml version=""1.0"" encoding=""UTF-8""?>
-<package
-    xmlns=""http://www.idpf.org/2007/opf""
-    version=""3.0""
-    xml:lang=""ja""
-    unique-identifier=""unique-id""
-    prefix=""ebpaj: http://www.ebpaj.jp/""
+<!DOCTYPE html>
+<html
+   xmlns=""http://www.w3.org/1999/xhtml""
+   xmlns:epub=""http://www.idpf.org/2007/ops""
+   xml:lang=""ja""
 >
-<metadata xmlns:dc=""http://purl.org/dc/elements/1.1/"">
-<dc:title id=""title"">");
-            
-            #line 16 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.Title)));
-            
-            #line default
-            #line hidden
-            this.Write("</dc:title>\r\n<meta refines=\"#title\" property=\"file-as\">");
-            
-            #line 17 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.KanaTitle)));
-            
-            #line default
-            #line hidden
-            this.Write("</meta>\r\n\r\n<dc:creator id=\"creator01\">");
-            
-            #line 19 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.Author)));
-            
-            #line default
-            #line hidden
-            this.Write("</dc:creator>\r\n<meta refines=\"#creator01\" property=\"role\" scheme=\"marc:relators\">" +
-                    "aut</meta>\r\n<meta refines=\"#creator01\" property=\"file-as\">");
-            
-            #line 21 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.KanaAuthor)));
-            
-            #line default
-            #line hidden
-            this.Write("</meta>\r\n<meta refines=\"#creator01\" property=\"display-seq\">1</meta>\r\n    \r\n<dc:la" +
-                    "nguage>ja</dc:language>\r\n<dc:identifier id=\"unique-id\">urn:uuid:");
-            
-            #line 25 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_vol.UniqueId));
-            
-            #line default
-            #line hidden
-            this.Write("</dc:identifier>\r\n<meta property=\"dcterms:modified\">");
-            
-            #line 26 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(_modDate));
-            
-            #line default
-            #line hidden
-            this.Write(@"</meta>
-<meta property=""ebpaj:guide-version"">1.1.3</meta>
-</metadata>
-
-<manifest>
-<!-- navigation -->
-<item media-type=""application/xhtml+xml"" id=""toc"" href=""navigation-documents.xhtml"" properties=""nav""/>
-
-<!-- style -->
-<item media-type=""text/css"" id=""book-style"" href=""style/style.css""/>
-
-<!-- image -->
-<item media-type=""image/jpeg"" id=""cover"" href=""image/cover.jpg"" properties=""cover-image""/>
-
-<!-- xhtml -->
-<item media-type=""application/xhtml+xml"" id=""p-cover"" href=""xhtml/p-cover.xhtml""/>
-<item media-type=""application/xhtml+xml"" id=""p-toc"" href=""xhtml/p-toc.xhtml""/>
+<head>
+<meta charset=""UTF-8""/>
+<title>目次</title>
+<link rel=""stylesheet"" type=""text/css"" href=""style/style.css""/>
+</head>
+<body>
+<nav epub:type=""toc"" id=""toc"">
+<h1>目次</h1>
+<ol>
 ");
             
-            #line 43 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
- foreach (var sectGrp in _vol.SectionGroups) { 
+            #line 23 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlNaviDocTemplate.tt"
+ foreach (var sectGrp in _vol.SectionGroups)
+   {
+       foreach (var sect in sectGrp.Sections)
+       {
+
             
             #line default
             #line hidden
-            this.Write("<item media-type=\"application/xhtml+xml\" id=\"");
+            this.Write("<li><a href=\"xhtml/");
             
-            #line 44 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
+            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlNaviDocTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
             
             #line default
             #line hidden
-            this.Write("\" href=\"xhtml/");
+            this.Write(".xhtml#");
             
-            #line 44 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
-            
-            #line default
-            #line hidden
-            this.Write(".xhtml\"/>\r\n");
-            
-            #line 45 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
- } 
+            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlNaviDocTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(sect.SectionId));
             
             #line default
             #line hidden
-            this.Write("</manifest>\r\n\r\n<spine page-progression-direction=\"rtl\">\r\n<itemref linear=\"yes\" id" +
-                    "ref=\"p-cover\"/>\r\n<itemref linear=\"yes\" idref=\"p-toc\"/>\r\n");
+            this.Write("\">");
             
-            #line 51 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
- foreach (var sectGrp in _vol.SectionGroups) { 
-            
-            #line default
-            #line hidden
-            this.Write("<itemref linear=\"yes\" idref=\"");
-            
-            #line 52 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
+            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlNaviDocTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.SectionNumber)));
             
             #line default
             #line hidden
-            this.Write("\"/>\r\n");
+            this.Write(" ");
             
-            #line 53 "D:\MyPrograms\narozip2mobi\narozip2mobi\OpfTemplate.tt"
- } 
+            #line 28 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlNaviDocTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(sect.Title)));
             
             #line default
             #line hidden
-            this.Write("</spine>\r\n\r\n</package>\r\n");
+            this.Write("</a></li>\r\n");
+            
+            #line 29 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlNaviDocTemplate.tt"
+     }
+   }
+
+            
+            #line default
+            #line hidden
+            this.Write("</ol>\r\n</nav>\r\n</body>\r\n</html>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -160,7 +104,7 @@ namespace narozip2mobi
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class OpfTemplateBase
+    public class XhtmlNaviDocTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

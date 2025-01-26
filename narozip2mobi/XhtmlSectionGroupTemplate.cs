@@ -84,7 +84,7 @@ xml:lang=""ja""
             this.Write("<p>");
             
             #line 25 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(HtmlUtils.EncodeBody(para)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(para != string.Empty ? HtmlUtils.EncodeBody(para): "<br/>"));
             
             #line default
             #line hidden
@@ -108,7 +108,7 @@ xml:lang=""ja""
             
             #line default
             #line hidden
-            this.Write("<section>\r\n<p>本の終わり</p>\r\n</section>\r\n");
+            this.Write("<section>\r\n<p>（本の終わり）</p>\r\n</section>\r\n");
             
             #line 33 "D:\MyPrograms\narozip2mobi\narozip2mobi\XhtmlSectionGroupTemplate.tt"
  } 

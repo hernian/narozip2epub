@@ -39,6 +39,7 @@
 
 <!-- xhtml -->
 <item media-type="application/xhtml+xml" id="p-cover" href="xhtml/p-cover.xhtml"/>
+<item media-type="application/xhtml+xml" id="p-toc" href="xhtml/p-toc.xhtml"/>
 <# foreach (var sectGrp in _vol.SectionGroups) { #>
 <item media-type="application/xhtml+xml" id="<#= sectGrp.SectionGroupId #>" href="xhtml/<#= sectGrp.SectionGroupId #>.xhtml"/>
 <# } #>
@@ -46,6 +47,7 @@
 
 <spine page-progression-direction="rtl">
 <itemref linear="yes" idref="p-cover"/>
+<itemref linear="yes" idref="p-toc"/>
 <# foreach (var sectGrp in _vol.SectionGroups) { #>
 <itemref linear="yes" idref="<#= sectGrp.SectionGroupId #>"/>
 <# } #>

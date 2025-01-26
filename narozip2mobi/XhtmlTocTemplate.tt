@@ -10,26 +10,21 @@
 xmlns="http://www.w3.org/1999/xhtml"
 xmlns:epub="http://www.idpf.org/2007/ops"
 xml:lang="ja"
+class="vrtl"
 >
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title><#= HtmlUtils.EncodeHead(_vol.Title) #></title>
 <link rel="stylesheet" type="text/css" href="../style/style.css"/>
-<title><#= HtmlUtils.EncodeHead(_title) #></title>
 </head>
-<body>
-<# foreach (var sect in _sectGrp.Sections) { #>
-<section id="<#= sect.SectionId #>">
-<h2><#= HtmlUtils.EncodeBody(sect.SectionNumber) #> <#= HtmlUtils.EncodeBody(sect.Title) #></h2>
-<# foreach (var para in sect.Paragraphs ) { #>
-<p><#= para != string.Empty ? HtmlUtils.EncodeBody(para): "<br/>" #></p>
+<body class="p-toc">
+<div class="main">
+<h1 class="mokuji-midashi">目次</h1>
+<# foreach (var sectGrp in _vol.SectionGroups) { #>
+<# foreach (var sect in sectGrp.Sections) { #>
+<p>　<a href="<#= sectGrp.SectionGroupId #>.xhtml#<#= sect.SectionId #>"><#= HtmlUtils.EncodeBody(sect.SectionNumber) #> <#= HtmlUtils.EncodeBody(sect.Title) #></a></p>
 <# } #>
-</section>
 <# } #>
-<# if (_sectGrp.IsEndOfVolume) { #>
-<section>
-<p>（本の終わり）</p>
-</section>
-<# } #>
+</div>
 </body>
 </html>

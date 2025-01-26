@@ -33,9 +33,9 @@
     <None Update="style.css">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="TocTemplate.tt">
+    <None Update="XhtmlNaviDocTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>TocTemplate.cs</LastGenOutput>
+      <LastGenOutput>XhtmlNaviDocTemplate.cs</LastGenOutput>
     </None>
     <None Update="OpfTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -44,6 +44,10 @@
     <None Update="XhtmlSectionGroupTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>XhtmlSectionGroupTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="XhtmlTocTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>XhtmlTocTemplate.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -87,10 +91,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="TocTemplate.cs">
+    <Compile Update="XhtmlNaviDocTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>TocTemplate.tt</DependentUpon>
+      <DependentUpon>XhtmlNaviDocTemplate.tt</DependentUpon>
     </Compile>
     <Compile Update="OpfTemplate.cs">
       <DesignTime>True</DesignTime>
@@ -111,6 +115,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>XhtmlSectionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="XhtmlTocTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>XhtmlTocTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -144,6 +153,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>XhtmlSectionGroupTemplate.tt</DependentUpon>
+    </None>
+    <None Include="XhtmlTocTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>XhtmlTocTemplate.tt</DependentUpon>
     </None>
   </ItemGroup>
 

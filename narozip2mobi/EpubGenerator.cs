@@ -14,7 +14,7 @@ using System.Windows.Markup;
 
 namespace narozip2mobi
 {
-    internal class EpubGenerator(Book book, Options opt)
+    internal class EpubGenerator(Book book, string dirOut)
     {
         private const int SIZE_VOLUME_MAX = 1000 * 1024;
         private const int SIZE_SECTION_GROUP_MAX = 200 * 1024;
@@ -22,8 +22,7 @@ namespace narozip2mobi
         private readonly Encoding _enc = new UTF8Encoding(false);
 
         private readonly Book _book = book;
-        private readonly Options _opt = opt;
-        private readonly string _dirOut = opt.OutputDir;
+        private readonly string _dirOut = dirOut;
 
         public void Generate()
         {
@@ -54,6 +53,7 @@ namespace narozip2mobi
             // int tempSectGrpNum = 1;
             foreach (var sect in book.Sections)
             {
+                // ここまでデバッグ用
                 var sectId = $"s{sect.SectionNumber}";
                 var epubSect = new EpubSection(sect.SectionNumber, sectId, sect.Title, sect.Paragraphs);
                 var htmlSectTempl = new XhtmlSectionTemplate(epubSect);
@@ -114,11 +114,20 @@ namespace narozip2mobi
                     listSectGrp.Add(sectGrp);
                     sectGrpNum++;
                 }
-                var dirName = $"{_opt.Title}({volIdFormatter.Format(volNum)})";
-                var volTitle = $"{_opt.Title}({volNum})";
-                var volKanaTitle = $"{_opt.KanaTitle}({volNum})";
+                // 分割ボリュームがある場合は"(ボリューム番号)"を付ける。
+                // 但し、カナのタイトルには()は付けない。
+                // ソートが目的の値なのでソート結果に期待値との乖離を生みそうなものは入れない。
+                var dirName = book.Title;
+                var volTitle = book.Title;
+                var volKanaTitle = book.KanaTitle;
+                if (listTempVol.Count > 1)
+                {
+                    dirName += $"({volIdFormatter.Format(volNum)})";
+                    volTitle += $"({volNum})";
+                    volKanaTitle = $"{_book.KanaTitle}{volNum}";
+                }
                 var uniqueId = Guid.NewGuid().ToString();
-                var vol = new EpubVolume(volNum, dirName, volTitle, volKanaTitle, opt.Author, opt.KanaAuthor, uniqueId, listSectGrp.AsReadOnly());
+                var vol = new EpubVolume(volNum, dirName, volTitle, volKanaTitle, book.Author, book.KanaAuthor, uniqueId, listSectGrp.AsReadOnly());
                 listVol.Add(vol);
                 volNum++;
             }
@@ -150,8 +159,8 @@ namespace narozip2mobi
             TextFileUtil.WriteText(pathStyleCss, Properties.Resources.style_css);
 
             var pathNaviDocXhtml = Path.Combine(dirItem, "navigation-documents.xhtml");
-            var tocGen = new TocTemplate(vol);
-            var strToc = tocGen.TransformText();
+            var naviDocGen = new XhtmlNaviDocTemplate(vol);
+            var strToc = naviDocGen.TransformText();
             TextFileUtil.WriteText(pathNaviDocXhtml, strToc);
 
             var pathCoverJpg = Path.Combine(dirImage, "cover.jpg");
@@ -160,8 +169,13 @@ namespace narozip2mobi
 
             var pathCoverXhtml = Path.Combine(dirXhtml, "p-cover.xhtml");
             var xhtmlCoverTempl = new XhtmlCoverTemplate(vol.Title);
-            var strXhtmlCoverTempl = xhtmlCoverTempl.TransformText();
-            TextFileUtil.WriteText(pathCoverXhtml, strXhtmlCoverTempl);
+            var strXhtmlCover = xhtmlCoverTempl.TransformText();
+            TextFileUtil.WriteText(pathCoverXhtml, strXhtmlCover);
+
+            var pathTocXhtml = Path.Combine(dirXhtml, "p-toc.xhtml");
+            var xhtmlTocTempl = new XhtmlTocTemplate(vol);
+            var strXhtmlToc = xhtmlTocTempl.TransformText();
+            TextFileUtil.WriteText(pathTocXhtml, strXhtmlToc);
 
             foreach (var sectGrp in vol.SectionGroups)
             {
@@ -190,11 +204,16 @@ namespace narozip2mobi
             CompressFile(zipArch, "item/navigation-documents.xhtml", CompressionLevel.Optimal, Path.Combine(dirVol, "item", "navigation-documents.xhtml"));
             CompressFile(zipArch, "item/style/style.css", CompressionLevel.Optimal, Path.Combine(dirVol, "item", "style", "style.css"));
             CompressFile(zipArch, "item/image/cover.jpg", CompressionLevel.Optimal, Path.Combine(dirVol, "item", "image", "cover.jpg"));
+            CompressFile(zipArch, "item/xhtml/p-toc.xhtml", CompressionLevel.Optimal, Path.Combine(dirVol, "item", "xhtml", "p-toc.xhtml"));
             var pathXhtmls = Directory.GetFiles(Path.Combine(dirVol, "item", "xhtml"), "*.xhtml");
             Array.Sort(pathXhtmls);
             foreach (var pathXhtml in pathXhtmls)
             {
                 var filename = Path.GetFileName(pathXhtml);
+                if (filename == "p-toc.xhtml")
+                {
+                    continue;
+                }
                 CompressFile(zipArch, $"item/xhtml/{filename}", CompressionLevel.Optimal, pathXhtml);
             }
         }

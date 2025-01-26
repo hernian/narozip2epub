@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace narozip2mobi
 {
-    public class Book(string title, string author, ReadOnlyCollection<Book.Section> sects)
+    public class Book(string title, string kanaTitle, string author, string kanaAuthor, ReadOnlyCollection<Book.Section> sects)
     {
         public class Section(int sectNum, string title, ReadOnlyCollection<string> paras)
         {
@@ -17,7 +17,9 @@ namespace narozip2mobi
         }
 
         public readonly string Title = title;
+        public readonly string KanaTitle = kanaTitle;
         public readonly string Author = author;
+        public readonly string KanaAuthor = kanaAuthor;
         public readonly ReadOnlyCollection<Section> Sections = sects;
     }
 }

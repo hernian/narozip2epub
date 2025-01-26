@@ -19,10 +19,18 @@ namespace narozip2mobi
                 Console.WriteLine($"Author      : {opt.Author}");
                 Console.WriteLine($"Author(Kana): {opt.KanaAuthor}");
 
-                var bookReader = new ZipBookReader(opt.PathSourceZip, opt.Title, opt.Author);
+                var bookReader = new ZipBookReader(opt.PathSourceZip)
+                {
+                    Title = opt.Title,
+                    KanaTitle = opt.KanaTitle,
+                    Author = opt.Author,
+                    KanaAuthor = opt.KanaAuthor,
+                    StartSectionMarker = "********************************************",
+                    EndSectionMarker = "************************************************",
+                };
                 var book = bookReader.ReadBook();
 
-                var epubGen = new EpubGenerator(book, opt);
+                var epubGen = new EpubGenerator(book, opt.OutputDir);
                 epubGen.Generate();
             });
         }
