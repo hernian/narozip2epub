@@ -18,7 +18,7 @@ namespace narozip2epub
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+    #line 1 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class OpfTemplate : OpfTemplateBase
     {
@@ -39,21 +39,21 @@ namespace narozip2epub
 <metadata xmlns:dc=""http://purl.org/dc/elements/1.1/"">
 <dc:title id=""title"">");
             
-            #line 16 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 16 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.Title)));
             
             #line default
             #line hidden
             this.Write("</dc:title>\r\n<meta refines=\"#title\" property=\"file-as\">");
             
-            #line 17 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 17 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.KanaTitle)));
             
             #line default
             #line hidden
             this.Write("</meta>\r\n\r\n<dc:creator id=\"creator01\">");
             
-            #line 19 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 19 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.Author)));
             
             #line default
@@ -61,7 +61,7 @@ namespace narozip2epub
             this.Write("</dc:creator>\r\n<meta refines=\"#creator01\" property=\"role\" scheme=\"marc:relators\">" +
                     "aut</meta>\r\n<meta refines=\"#creator01\" property=\"file-as\">");
             
-            #line 21 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 21 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(XmlEncode(_vol.KanaAuthor)));
             
             #line default
@@ -69,14 +69,28 @@ namespace narozip2epub
             this.Write("</meta>\r\n<meta refines=\"#creator01\" property=\"display-seq\">1</meta>\r\n    \r\n<dc:la" +
                     "nguage>ja</dc:language>\r\n<dc:identifier id=\"unique-id\">urn:uuid:");
             
-            #line 25 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 25 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_vol.UniqueId));
             
             #line default
             #line hidden
-            this.Write("</dc:identifier>\r\n<meta property=\"dcterms:modified\">");
+            this.Write("</dc:identifier>\r\n<dc:date>");
             
-            #line 26 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 26 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modDate));
+            
+            #line default
+            #line hidden
+            this.Write("</dc:date>\r\n<meta property=\"dcterms:created\">");
+            
+            #line 27 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(_modDate));
+            
+            #line default
+            #line hidden
+            this.Write("</meta>\r\n<meta property=\"dcterms:modified\">");
+            
+            #line 28 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(_modDate));
             
             #line default
@@ -100,28 +114,28 @@ namespace narozip2epub
 <item media-type=""application/xhtml+xml"" id=""p-toc"" href=""xhtml/p-toc.xhtml""/>
 ");
             
-            #line 43 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 45 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
  foreach (var sectGrp in _vol.SectionGroups) { 
             
             #line default
             #line hidden
             this.Write("<item media-type=\"application/xhtml+xml\" id=\"");
             
-            #line 44 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 46 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
             
             #line default
             #line hidden
             this.Write("\" href=\"xhtml/");
             
-            #line 44 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 46 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
             
             #line default
             #line hidden
             this.Write(".xhtml\"/>\r\n");
             
-            #line 45 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 47 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
  } 
             
             #line default
@@ -129,21 +143,21 @@ namespace narozip2epub
             this.Write("</manifest>\r\n\r\n<spine page-progression-direction=\"rtl\">\r\n<itemref linear=\"yes\" id" +
                     "ref=\"p-cover\"/>\r\n<itemref linear=\"yes\" idref=\"p-toc\"/>\r\n");
             
-            #line 51 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 53 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
  foreach (var sectGrp in _vol.SectionGroups) { 
             
             #line default
             #line hidden
             this.Write("<itemref linear=\"yes\" idref=\"");
             
-            #line 52 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 54 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(sectGrp.SectionGroupId));
             
             #line default
             #line hidden
             this.Write("\"/>\r\n");
             
-            #line 53 "D:\MyPrograms\narozip2epub\narozip2mobi\OpfTemplate.tt"
+            #line 55 "D:\MyPrograms\narozip2epub\narozip2epub\OpfTemplate.tt"
  } 
             
             #line default

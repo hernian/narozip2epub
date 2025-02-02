@@ -23,6 +23,8 @@
     
 <dc:language>ja</dc:language>
 <dc:identifier id="unique-id">urn:uuid:<#= _vol.UniqueId #></dc:identifier>
+<dc:date><#= _modDate #></dc:date>
+<meta property="dcterms:created"><#= _modDate #></meta>
 <meta property="dcterms:modified"><#= _modDate #></meta>
 <meta property="ebpaj:guide-version">1.1.3</meta>
 </metadata>

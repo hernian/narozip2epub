@@ -26,10 +26,14 @@ namespace narozip2epub
 
         public void Generate()
         {
+            var utcNow = DateTime.UtcNow;
             var vols = SplitBookToVolumes(_book);
+            int i = vols.Count - 1;
             foreach (var vol in vols)
             {
-                GenerateVolume(vol);
+                var utcPublish = utcNow - TimeSpan.FromDays(i);
+                GenerateVolume(vol, utcPublish);
+                i--;
             }
             foreach (var vol in vols)
             {
@@ -134,7 +138,7 @@ namespace narozip2epub
             return listVol.AsReadOnly();
         }
 
-        private void GenerateVolume(EpubVolume vol)
+        private void GenerateVolume(EpubVolume vol, DateTime utcPublish)
         {
             var dirVol = Path.Combine(_dirOut, vol.DirectoryName);
             var dirMetaInf = Path.Combine(dirVol, "META-INF");
@@ -186,8 +190,8 @@ namespace narozip2epub
             }
 
             var pathOpf = Path.Combine(dirItem, "standard.opf");
-            var modDate = $"{DateTime.UtcNow:s}Z";
-            var opfTempl = new OpfTemplate(vol, modDate);
+            var strPublishDate = $"{utcPublish:s}Z";
+            var opfTempl = new OpfTemplate(vol, strPublishDate);
             var strOpf = opfTempl.TransformText();
             TextFileUtil.WriteText(pathOpf, strOpf);
         }
