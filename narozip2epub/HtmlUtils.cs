@@ -19,7 +19,7 @@ namespace narozip2epub
         public static string EncodeBody(string text)
         {
             var temp = HttpUtility.HtmlEncode(text);
-            var regexTcy = RegexDigits();
+            var regexTcy = RegexAlnum();
             var match = regexTcy.Match(temp);
             if (match.Success)
             {
@@ -38,7 +38,7 @@ namespace narozip2epub
                     {
                         var matchEnd = match.Index + match.Length;
                         var len = matchEnd - idx;
-                        sb.Append(temp.AsSpan(idx, len));
+                        ToZenkaku(sb, temp.AsSpan(idx, len));
                         idx = matchEnd;
                     }
                     match = regexTcy.Match(temp, idx);
@@ -52,12 +52,35 @@ namespace narozip2epub
             return text;
         }
 
+        private static void ToZenkaku(StringBuilder sb, ReadOnlySpan<char> chSpan)
+        {
+            foreach (var ch in chSpan)
+            {
+                if ('0' <= ch && ch <= '9')
+                {
+                    var zench = '\uFF00' + (ch - '0');
+                    sb.Append(zench);
+                }
+                else if ('a' <= ch && ch <= 'z')
+                {
+                    var zench = '\uFF41' + (ch - '0');
+                    sb.Append(zench);
+                }
+                else
+                {
+                    var zench = '\uFF21' + (ch - '0');
+                    sb.Append(zench);
+                }
+            }
+        }
+
         public static string EncodeBody(int num)
         {
             return EncodeBody(num.ToString());
         }
 
-        [GeneratedRegex(@"\d+")]
-        private static partial Regex RegexDigits();
+        [GeneratedRegex(@"(\d+|[a-zA-Z])")]
+        private static partial Regex RegexAlnum();
+
     }
 }
