@@ -38,7 +38,7 @@ namespace narozip2epub
                     {
                         var matchEnd = match.Index + match.Length;
                         var len = matchEnd - idx;
-                        ToZenkaku(sb, temp.AsSpan(idx, len));
+                        sb.Append(temp.AsSpan(idx, len));
                         idx = matchEnd;
                     }
                     match = regexTcy.Match(temp, idx);
@@ -79,7 +79,7 @@ namespace narozip2epub
             return EncodeBody(num.ToString());
         }
 
-        [GeneratedRegex(@"(\d+|[a-zA-Z])")]
+        [GeneratedRegex(@"([0-9a-zA-Z]+)")]
         private static partial Regex RegexAlnum();
 
     }
