@@ -2,7 +2,8 @@
   "profiles": {
     "narozip2mobi": {
       "commandName": "Project",
-      "commandLineArgs": "--output-dir \"D:\\MyKindle\\test\\出涸らし皇子\"\r\n--title \"出涸らし皇子\"\r\n--kana-title \"デガラシコウシ\"\r\n--author \"タンバ\"\r\n--kana-author \"タンバ\"\r\n--source-zip \"D:\\MyKindle\\タンバ\\出涸らし皇子.zip\""
+      "commandLineArgs": "--output-dir .\r\n--title 商人令嬢\r\n--kana-title ショウニンレンジョウ\r\n--author 西崎ありす\r\n--kana-author ニシザキアリス\r\n--source-zip 商人令嬢.zip\"",
+      "workingDirectory": "D:\\MyKindle\\西崎ありす"
     }
   }
 }

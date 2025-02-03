@@ -11,6 +11,7 @@ namespace narozip2epub
     internal partial class HtmlUtils
     {
         private const int LENGTH_TCY_MAX = 3;
+        private const int LENGTH_UR_MAX = 5;
         public static string EncodeHead(string text)
         {
             return HttpUtility.HtmlEncode(text);
@@ -18,38 +19,80 @@ namespace narozip2epub
 
         public static string EncodeBody(string text)
         {
-            var temp = HttpUtility.HtmlEncode(text);
-            var regexTcy = RegexAlnum();
-            var match = regexTcy.Match(temp);
+            List<string> listTextFragment = [];
+            var regexDigits = RegexDigit();
+            int idx = 0;
+            var match = regexDigits.Match(text, idx);
             if (match.Success)
             {
-                int idx = 0;
-                var sb = new StringBuilder();
                 do
                 {
-                    if (match.Length <= LENGTH_TCY_MAX)
+                    if (idx < match.Index)
                     {
-                        var len = match.Index - idx;
-                        sb.Append(temp.AsSpan(idx, len));
-                        sb.Append($"<span class=\"tcy\">{match.Value}</span>");
-                        idx = match.Index + match.Length;
+                        listTextFragment.Add(text[idx..match.Index]);
+                        idx = match.Index;
                     }
-                    else
-                    {
-                        var matchEnd = match.Index + match.Length;
-                        var len = matchEnd - idx;
-                        sb.Append(temp.AsSpan(idx, len));
-                        idx = matchEnd;
-                    }
-                    match = regexTcy.Match(temp, idx);
-                } while (match.Success);
-                if (idx < temp.Length)
+                    var idxMatchEnd = match.Index + match.Length;
+                    listTextFragment.Add(text[idx..idxMatchEnd]);
+                    idx = idxMatchEnd;
+                    match = regexDigits.Match(text, idx);
+                }while (match.Success);
+                if (idx < text.Length)
                 {
-                    sb.Append(temp.AsSpan(idx));
+                    listTextFragment.Add(text[idx..text.Length]);
                 }
-                text = sb.ToString();
             }
-            return text;
+            else
+            {
+                listTextFragment.Add(text);
+            }
+
+            var sb = new StringBuilder();
+            foreach (var textFragment in listTextFragment)
+            {
+                var isAllDigit = textFragment.All(ch => IsNumeric(ch));
+                var isAllLetterOrDigit = textFragment.All(ch => IsAlphaNumeric(ch));
+                var temp = HttpUtility.HtmlEncode(textFragment);
+                if ((0 < textFragment.Length) && (textFragment.Length <= LENGTH_TCY_MAX) && isAllDigit)
+                {
+                    sb.Append("<span class=\"tcy\">");
+                    sb.Append(temp);
+                    sb.Append("</span>");
+                }
+                else if ((0 < textFragment.Length) && isAllLetterOrDigit)
+                {
+                    sb.Append("<span class=\"ur\">");
+                    sb.Append(temp);
+                    sb.Append("</span>");
+                }
+                else
+                {
+                    sb.Append(temp);
+                }
+            }
+            return sb.ToString();
+        }
+
+        private static bool IsNumeric(char ch)
+        {
+            return ('0' <= ch && ch <= '9');
+        }
+
+        private static bool IsAlphaNumeric(char ch)
+        {
+            if ('0' <= ch && ch <= '9')
+            {
+                return true;
+            }
+            if ('A' <= ch && ch <= 'Z')
+            {
+                return true;
+            }
+            if ('a' <= ch && ch <= 'z')
+            {
+                return true;
+            }
+            return false;
         }
 
         private static void ToZenkaku(StringBuilder sb, ReadOnlySpan<char> chSpan)
@@ -79,8 +122,8 @@ namespace narozip2epub
             return EncodeBody(num.ToString());
         }
 
-        [GeneratedRegex(@"([0-9a-zA-Z]+)")]
-        private static partial Regex RegexAlnum();
+        [GeneratedRegex(@"(\d+|[ -~]+)")]
+        private static partial Regex RegexDigit();
 
     }
 }
